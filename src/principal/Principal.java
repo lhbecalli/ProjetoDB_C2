@@ -132,9 +132,9 @@ public class Principal {
         linha(centralizar(SISTEMA));
         linha("");
         linha("TOTAL DE REGISTROS EXISTENTES");
-        linha("  1 - ALUNOS:      " + contar("alunos"));
-        linha("  2 - LIVROS:      " + contar("livros"));
-        linha("  3 - EMPRESTIMOS: " + contar("emprestimos"));
+        linha("  1 - ALUNOS:      " + contar("tb_alunos"));
+        linha("  2 - LIVROS:      " + contar("tb_livros"));
+        linha("  3 - EMPRESTIMOS: " + contar("tb_emprestimos"));
         linha("");
         linha("CRIADO POR: " + GRUPO[0]);
         for (int i = 1; i < GRUPO.length; i++) {

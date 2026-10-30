@@ -3,8 +3,9 @@
 Esquema das tabelas usado pelo script SQL, pelo model e pelos controllers.
 
 Banco: PostgreSQL. Tabelas e colunas em minúsculo e sem acento.
+Toda tabela começa com o prefixo `tb_` (ex.: `tb_livros`).
 
-## alunos
+## tb_alunos
 | coluna | tipo | regras |
 |---|---|---|
 | id_aluno | INTEGER | PK, GENERATED ALWAYS AS IDENTITY |
@@ -13,7 +14,7 @@ Banco: PostgreSQL. Tabelas e colunas em minúsculo e sem acento.
 | turma | VARCHAR(20) | NOT NULL |
 | email | VARCHAR(100) | pode ficar vazio |
 
-## livros
+## tb_livros
 | coluna | tipo | regras |
 |---|---|---|
 | id_livro | INTEGER | PK, GENERATED ALWAYS AS IDENTITY |
@@ -23,12 +24,12 @@ Banco: PostgreSQL. Tabelas e colunas em minúsculo e sem acento.
 | ano_publicacao | INTEGER | pode ficar vazio |
 | quantidade_exemplares | INTEGER | NOT NULL, CHECK (>= 0) |
 
-## emprestimos
+## tb_emprestimos
 | coluna | tipo | regras |
 |---|---|---|
 | id_emprestimo | INTEGER | PK, GENERATED ALWAYS AS IDENTITY |
-| id_aluno | INTEGER | NOT NULL, FK para alunos(id_aluno) |
-| id_livro | INTEGER | NOT NULL, FK para livros(id_livro) |
+| id_aluno | INTEGER | NOT NULL, FK para tb_alunos(id_aluno) |
+| id_livro | INTEGER | NOT NULL, FK para tb_livros(id_livro) |
 | data_emprestimo | DATE | NOT NULL |
 | data_prevista_devolucao | DATE | NOT NULL |
 | data_devolucao | DATE | NULL até o livro ser devolvido |
