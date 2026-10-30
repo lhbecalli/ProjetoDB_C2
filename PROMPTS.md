@@ -3,7 +3,7 @@
 Registro de uso de IA, conforme o edital (item 5 das observações).
 Para cada uso, anotar: **prompt**, **fonte** (ferramenta) e **o que o grupo fez com a resposta**.
 
-Fonte de todos os registros abaixo: Claude Code (modelo Claude Sonnet 5.5), usado pelo Luiz.
+Fonte de todos os registros abaixo: Claude Code (modelo Claude Sonnet 5.5), usado pelo Luiz e Atilla.
 Os prompts estão resumidos, nas palavras que usamos.
 
 | Data | Quem | Prompt | O que fizemos com a resposta |
