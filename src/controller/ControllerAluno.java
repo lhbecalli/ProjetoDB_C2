@@ -13,18 +13,18 @@ import java.util.List;
 public class ControllerAluno {
 
     public boolean existe(int idAluno) throws SQLException {
-        String sql = "SELECT COUNT(1) total FROM alunos WHERE id_aluno = " + idAluno;
+        String sql = "SELECT COUNT(1) total FROM tb_alunos WHERE id_aluno = " + idAluno;
         return contar(sql) > 0;
     }
 
     public boolean existeMatricula(String matricula, int idIgnorado) throws SQLException {
-        String sql = "SELECT COUNT(1) total FROM alunos WHERE matricula = " + SqlUtil.texto(matricula)
+        String sql = "SELECT COUNT(1) total FROM tb_alunos WHERE matricula = " + SqlUtil.texto(matricula)
                 + " AND id_aluno <> " + idIgnorado;
         return contar(sql) > 0;
     }
 
     public int contarEmprestimos(int idAluno) throws SQLException {
-        String sql = "SELECT COUNT(1) total FROM emprestimos WHERE id_aluno = " + idAluno;
+        String sql = "SELECT COUNT(1) total FROM tb_emprestimos WHERE id_aluno = " + idAluno;
         return contar(sql);
     }
 
@@ -33,7 +33,7 @@ public class ControllerAluno {
             throw new IllegalStateException("Ja existe um aluno com essa matricula.");
         }
 
-        String sql = "INSERT INTO alunos (nome, matricula, turma, email) VALUES ("
+        String sql = "INSERT INTO tb_alunos (nome, matricula, turma, email) VALUES ("
                 + SqlUtil.texto(aluno.getNome()) + ", "
                 + SqlUtil.texto(aluno.getMatricula()) + ", "
                 + SqlUtil.texto(aluno.getTurma()) + ", "
@@ -57,7 +57,7 @@ public class ControllerAluno {
             throw new IllegalStateException("Ja existe outro aluno com essa matricula.");
         }
 
-        String sql = "UPDATE alunos SET "
+        String sql = "UPDATE tb_alunos SET "
                 + "nome = " + SqlUtil.texto(aluno.getNome()) + ", "
                 + "matricula = " + SqlUtil.texto(aluno.getMatricula()) + ", "
                 + "turma = " + SqlUtil.texto(aluno.getTurma()) + ", "
@@ -83,8 +83,8 @@ public class ControllerAluno {
         try (Connection conn = Conexao.getConexao()) {
             conn.setAutoCommit(false);
             try (Statement st = conn.createStatement()) {
-                st.executeUpdate("DELETE FROM emprestimos WHERE id_aluno = " + idAluno);
-                st.executeUpdate("DELETE FROM alunos WHERE id_aluno = " + idAluno);
+                st.executeUpdate("DELETE FROM tb_emprestimos WHERE id_aluno = " + idAluno);
+                st.executeUpdate("DELETE FROM tb_alunos WHERE id_aluno = " + idAluno);
                 conn.commit();
             } catch (SQLException e) {
                 conn.rollback();
@@ -94,7 +94,7 @@ public class ControllerAluno {
     }
 
     public Aluno buscar(int idAluno) throws SQLException {
-        String sql = "SELECT id_aluno, nome, matricula, turma, email FROM alunos WHERE id_aluno = " + idAluno;
+        String sql = "SELECT id_aluno, nome, matricula, turma, email FROM tb_alunos WHERE id_aluno = " + idAluno;
 
         try (Connection conn = Conexao.getConexao();
              Statement st = conn.createStatement();
@@ -107,7 +107,7 @@ public class ControllerAluno {
     }
 
     public List<Aluno> listar() throws SQLException {
-        String sql = "SELECT id_aluno, nome, matricula, turma, email FROM alunos ORDER BY id_aluno";
+        String sql = "SELECT id_aluno, nome, matricula, turma, email FROM tb_alunos ORDER BY id_aluno";
         List<Aluno> alunos = new ArrayList<>();
 
         try (Connection conn = Conexao.getConexao();

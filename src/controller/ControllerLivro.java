@@ -13,19 +13,19 @@ import java.util.List;
 public class ControllerLivro {
 
     public boolean existe(int idLivro) throws SQLException {
-        String sql = "SELECT COUNT(1) total FROM livros WHERE id_livro = " + idLivro;
+        String sql = "SELECT COUNT(1) total FROM tb_livros WHERE id_livro = " + idLivro;
         return contar(sql) > 0;
     }
 
     public int contarEmprestimos(int idLivro) throws SQLException {
-        String sql = "SELECT COUNT(1) total FROM emprestimos WHERE id_livro = " + idLivro;
+        String sql = "SELECT COUNT(1) total FROM tb_emprestimos WHERE id_livro = " + idLivro;
         return contar(sql);
     }
 
     public Livro inserir(Livro livro) throws SQLException {
         validar(livro);
 
-        String sql = "INSERT INTO livros (titulo, autor, genero, ano_publicacao, quantidade_exemplares) VALUES ("
+        String sql = "INSERT INTO tb_livros (titulo, autor, genero, ano_publicacao, quantidade_exemplares) VALUES ("
                 + SqlUtil.texto(livro.getTitulo()) + ", "
                 + SqlUtil.texto(livro.getAutor()) + ", "
                 + SqlUtil.texto(livro.getGenero()) + ", "
@@ -48,7 +48,7 @@ public class ControllerLivro {
         }
         validar(livro);
 
-        String sql = "UPDATE livros SET "
+        String sql = "UPDATE tb_livros SET "
                 + "titulo = " + SqlUtil.texto(livro.getTitulo()) + ", "
                 + "autor = " + SqlUtil.texto(livro.getAutor()) + ", "
                 + "genero = " + SqlUtil.texto(livro.getGenero()) + ", "
@@ -75,8 +75,8 @@ public class ControllerLivro {
         try (Connection conn = Conexao.getConexao()) {
             conn.setAutoCommit(false);
             try (Statement st = conn.createStatement()) {
-                st.executeUpdate("DELETE FROM emprestimos WHERE id_livro = " + idLivro);
-                st.executeUpdate("DELETE FROM livros WHERE id_livro = " + idLivro);
+                st.executeUpdate("DELETE FROM tb_emprestimos WHERE id_livro = " + idLivro);
+                st.executeUpdate("DELETE FROM tb_livros WHERE id_livro = " + idLivro);
                 conn.commit();
             } catch (SQLException e) {
                 conn.rollback();
@@ -87,7 +87,7 @@ public class ControllerLivro {
 
     public Livro buscar(int idLivro) throws SQLException {
         String sql = "SELECT id_livro, titulo, autor, genero, ano_publicacao, quantidade_exemplares "
-                + "FROM livros WHERE id_livro = " + idLivro;
+                + "FROM tb_livros WHERE id_livro = " + idLivro;
 
         try (Connection conn = Conexao.getConexao();
              Statement st = conn.createStatement();
@@ -101,7 +101,7 @@ public class ControllerLivro {
 
     public List<Livro> listar() throws SQLException {
         String sql = "SELECT id_livro, titulo, autor, genero, ano_publicacao, quantidade_exemplares "
-                + "FROM livros ORDER BY id_livro";
+                + "FROM tb_livros ORDER BY id_livro";
         List<Livro> livros = new ArrayList<>();
 
         try (Connection conn = Conexao.getConexao();
