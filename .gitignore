@@ -1,0 +1,17 @@
+# Java / build
+target/
+out/
+*.class
+*.jar
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# SO
+Thumbs.db
+.DS_Store
+
+# Credenciais locais (não versionar senha do banco)
+config.local.properties
