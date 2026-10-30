@@ -1,10 +1,6 @@
 -- Banco da Biblioteca Escolar (PostgreSQL)
 -- Cria as tabelas conforme o CONTRATO_BANCO.md.
--- Pode rodar de novo: apaga as tabelas antes de criar.
-
-DROP TABLE IF EXISTS tb_emprestimos;
-DROP TABLE IF EXISTS tb_livros;
-DROP TABLE IF EXISTS tb_alunos;
+-- Nao apaga nada: se as tabelas ja existirem, o script para com erro.
 
 CREATE TABLE tb_alunos (
     id_aluno  INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
