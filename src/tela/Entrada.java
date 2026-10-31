@@ -1,9 +1,14 @@
 package tela;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 // Leitura de dados no console, compartilhada pelas telas.
 public class Entrada {
+    private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private final Scanner scanner;
 
     public Entrada(Scanner scanner) {
@@ -68,5 +73,35 @@ public class Entrada {
         System.out.print(rotulo + " [" + (atual == null ? "" : atual) + "]: ");
         String valor = scanner.nextLine().trim();
         return valor.isEmpty() ? atual : valor;
+    }
+
+    // Repete ate o usuario digitar uma data valida no formato dd/mm/aaaa.
+    public LocalDate lerData(String rotulo) {
+        while (true) {
+            System.out.print(rotulo + " (dd/mm/aaaa): ");
+            String valor = scanner.nextLine().trim();
+            try {
+                return LocalDate.parse(valor, FORMATO_DATA);
+            } catch (DateTimeParseException e) {
+                System.out.println("Data invalida. Use o formato dd/mm/aaaa.");
+            }
+        }
+    }
+
+    // Mostra o valor atual e mantem ele se o usuario so apertar Enter.
+    public LocalDate editarData(String rotulo, LocalDate atual) {
+        String atualTexto = atual == null ? "" : atual.format(FORMATO_DATA);
+        while (true) {
+            System.out.print(rotulo + " (dd/mm/aaaa) [" + atualTexto + "]: ");
+            String valor = scanner.nextLine().trim();
+            if (valor.isEmpty()) {
+                return atual;
+            }
+            try {
+                return LocalDate.parse(valor, FORMATO_DATA);
+            } catch (DateTimeParseException e) {
+                System.out.println("Data invalida. Use o formato dd/mm/aaaa.");
+            }
+        }
     }
 }

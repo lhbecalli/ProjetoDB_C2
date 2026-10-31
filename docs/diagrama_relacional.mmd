@@ -1,0 +1,29 @@
+erDiagram
+    TB_ALUNOS ||--o{ TB_EMPRESTIMOS : "tem"
+    TB_LIVROS ||--o{ TB_EMPRESTIMOS : "aparece em"
+
+    TB_ALUNOS {
+        int id_aluno PK
+        varchar nome
+        varchar matricula UK
+        varchar turma
+        varchar email
+    }
+
+    TB_LIVROS {
+        int id_livro PK
+        varchar titulo
+        varchar autor
+        varchar genero
+        int ano_publicacao
+        int quantidade_exemplares
+    }
+
+    TB_EMPRESTIMOS {
+        int id_emprestimo PK
+        int id_aluno FK
+        int id_livro FK
+        date data_emprestimo
+        date data_prevista_devolucao
+        date data_devolucao
+    }

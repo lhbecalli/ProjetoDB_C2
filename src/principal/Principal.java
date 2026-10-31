@@ -1,8 +1,10 @@
 package principal;
 
 import conexion.Conexao;
+import reports.Relatorios;
 import tela.Entrada;
 import tela.TelaAluno;
+import tela.TelaEmprestimo;
 import tela.TelaLivro;
 
 import java.sql.Connection;
@@ -20,11 +22,15 @@ public class Principal {
     private static Entrada entrada;
     private static TelaAluno telaAluno;
     private static TelaLivro telaLivro;
+    private static TelaEmprestimo telaEmprestimo;
+    private static Relatorios relatorios;
 
     public static void main(String[] args) {
         entrada = new Entrada(new Scanner(System.in));
         telaAluno = new TelaAluno(entrada);
         telaLivro = new TelaLivro(entrada);
+        telaEmprestimo = new TelaEmprestimo(entrada);
+        relatorios = new Relatorios();
 
         splashScreen();
 
@@ -94,7 +100,13 @@ public class Principal {
                 }
                 break;
             case 3:
-                emConstrucao("Emprestimos");
+                if (acao.equals("inserir")) {
+                    telaEmprestimo.inserir();
+                } else if (acao.equals("remover")) {
+                    telaEmprestimo.remover();
+                } else {
+                    telaEmprestimo.atualizar();
+                }
                 break;
             case 0:
                 break;
@@ -112,18 +124,16 @@ public class Principal {
 
         switch (opcao) {
             case 1:
+                relatorios.totalEmprestimosPorAluno();
+                break;
             case 2:
-                emConstrucao("Relatorio");
+                relatorios.emprestimosComAlunoELivro();
                 break;
             case 0:
                 break;
             default:
                 System.out.println("Opcao invalida.");
         }
-    }
-
-    private static void emConstrucao(String recurso) {
-        System.out.println(recurso + ": ainda nao implementado.");
     }
 
     private static void splashScreen() {
